@@ -1,10 +1,49 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8" />
+		<link rel="stylesheet" href="stan1.css" />
 		<title></title>
 	</head>
+
 	<body>
-		<p>你好</p>
+		<button type="button" class="but1">获取</button>
+		<input type="text" class="a" />
+		<input type="text" class="b" />
+		<p class="p1	"></p><span class="p2"></span>
+		<ul class="ul"></ul>
 	</body>
+	<script type="text/javascript" src="jquery-1.11.0.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".but1").click(function() {
+				$.ajax({
+					type: "get",
+					url: "https://api.jisuapi.com/todayhistory/query",
+					data: {
+						appkey: "cf2ddc12cb23174d",
+						month: $(".a").val(),
+						day: $(".b").val()
+					},
+					async: true,
+					dataType: "JSONP",
+					success: function(rea) {
+						//						console.log(rea['result']);
+						var n = rea['result'];
+						for(var i = 0; i < n.length; i++) {
+							var $title =$("<li></li>")
+								console.log(n[i]["title"])
+								$title.text(n[i]["title"]);
+								$(".ul").append($title)
+						}
+					},
+					error: function(e) {
+
+					}
+				});
+			})
+		})
+	</script>
+
 </html>
