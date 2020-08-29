@@ -8,12 +8,28 @@
 	</head>
 
 	<body>
-		<a href= "index.html">点击</a>
-		<button type="button" class="but1">获取</button>
-		<input type="text" class="a" />
-		<input type="text" class="b" />
-		<p class="p1	"></p><span class="p2"></span>
-		<ul class="ul"></ul>
+		<div class="container">
+			<div class="top">
+				<p>历史上的今天</p>
+			</div>
+			<div class="h20"></div>
+			<div class="text">
+				<p>请输入查询日期</p>
+				<input type="texy" class="m" placeholder="月" maxlength="1" />
+				<input type="text" class="d" placeholder="日" maxlength="1" />
+				<button type="button" class="but1">查询</button>
+			</div>
+			<ul class="ul">
+				<li>
+					<div class="div1">
+						<p class="p1"></p>
+						<p class="p2"></p>
+					</div>
+				</li>
+			</ul>
+			<div class="div2"></div>
+
+		</div>
 	</body>
 	<script type="text/javascript" src="jquery-1.11.0.js"></script>
 	<script type="text/javascript">
@@ -23,20 +39,20 @@
 					type: "get",
 					url: "https://api.jisuapi.com/todayhistory/query",
 					data: {
+						month: $(".m").val(),
+						day: $(".d").val(),
 						appkey: "cf2ddc12cb23174d",
-						month: $(".a").val(),
-						day: $(".b").val()
 					},
 					async: true,
 					dataType: "JSONP",
-					success: function(rea) {
-						//						console.log(rea['result']);
-						var n = rea['result'];
-						for(var i = 0; i < n.length; i++) {
-							var $title =$("<li></li>")
-								console.log(n[i]["title"])
-								$title.text(n[i]["title"]);
-								$(".ul").append($title)
+					success: function(res) {
+						var all = res["result"]
+						console.log(res)
+						for(var i = 0; i < all.length; i++) {
+							console.log(all[i]["month"])
+							$(".p1").text(all[i]["title"]);
+							$(".p2").text(all[i]["month"] + "月" + all[i]["day"] + "日")
+							$(".div2").html(all[i]["content"]).addClass("bor")
 						}
 					},
 					error: function(e) {
