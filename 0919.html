@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/new_file.css" />
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="h27"></div>
+			<div class="top">
+				<img class="logo" src="img/icon_huangli.png" />
+				<h3>今日黄历查询</h3>
+			</div>
+			<p class="p1">2345实用查询为您提供最专1上的黄历查询:覆盖吉凶宜忌、冲煞、吉神凶煞、值日、胎神、财神喜神福神方位等信息。</p>
+			<div class="input">
+				<div class="chaxun">
+					<P class="gongli">公历/阳历</P>
+					<input class="in1" type="in1" placeholder="年" maxlength="4" />
+					<p class="p2">年</p>
+					<input class="in2" type="text" placeholder="月" maxlength="2" />
+					<p class="p2">月</p>
+					<input class="in2 in3" type="text" placeholder="日" maxlength="2" />
+					<p class="p2">日</p>
+				</div>
+				<input class="su1" type="submit" value="查 询" />
+			</div>
+			<div class="tu"></div>
+			<div class="neirong">
+				<div class="n1">
+					<img src="img/l.png" />
+					<P class="p3"></P>
+					<p>吉时查询</p>
+					<img src="img/r.png" />
+				</div>
+				<div class="n2">
+					<p class="p4">公历/阳历</p>
+					<div class="n2-1">
+						<p class="p5"></p>
+						<p class="p6"></p>
+						<a class="a1" href="">
+							<p class="p7"></p>
+						</a>
+					</div>
+					<p class="p4">公历/阴历</p>
+					<p class="p8"></p>
+					<a class="a2" href="">
+						<p class="p9"></p>
+					</a>
+				</div>
+				<div class="n2">
+					<p class="p4">黄道吉日</p>
+					<div class="n2-1">
+						<p class="p10"></p>
+					</div>
+					<p class="p4">星宿</p>
+					<p class="p11"></p>
+				</div>
+				<div class="n3">
+					<div class="n3-1">
+						<div class="h11"></div>
+						<div class="y"></div>
+					</div>
+					<p class="p12"></p>
+				</div>
+				<div class="n4">
+					<div class="n4-l">
+						<div class="j"></div>
+					</div>
+					<p class="p13"></p>
+				</div>
+				<div class="n2">
+					<div class="n2l">
+						<div class="c"></div>
+					</div>
+					<div class="n2-1">
+						<p class="p10 bu"></p>
+					</div>
+					<p class="p4">吉神宜趋</p>
+					<p class="p11 pp"></p>
+				</div>
+				<div class="n5">
+					<div class="n5l">
+						<p class=".np">岁次</p>
+					</div>
+					<div class="n5r">
+						<p class="p15"></p>
+					</div>
+				</div>
+				<div class="n5">
+					<div class="n5l">
+						<p class="np">五行</p>
+					</div>
+					<div class="n5r">
+						<p class="p14"></p>
+					</div>
+				</div>
+				<div class="n6">
+					<div class="n5l">
+						<div class="taishen"></div>
+						<p class="ts">胎神</p>
+					</div>
+					<p class="p16"></p>
+				</div>
+				<div class="n6 n6l">
+					<div class="n5l">
+						<div class="caishen"></div>
+						<p class="ts">财神</p>
+					</div>
+					<p class="p17"></p>
+				</div>
+				<div class="n6 n6l">
+					<div class="n5l">
+						<div class="xishen"></div>
+						<p class="ts">喜神</p>
+					</div>
+					<p class="p18"></p>
+				</div>
+				<div class="n6">
+					<div class="n5l">
+						<div class="fushen"></div>
+						<p class="ts">福神</p>
+					</div>
+					<p class="p19"></p>
+				</div>
+			</div>
+	</body>
+	<script type="text/javascript" src="jquery-1.11.0.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".su1").click(function() {
+				$.ajax({
+					type: "get",
+					url: "https://api.jisuapi.com/huangli/date",
+					data: {
+						appkey: "cf2ddc12cb23174d",
+						year: $(".in1").val(),
+						month: $(".in2").val(),
+						day: $(".in3").val()
+					},
+					async: true,
+					dataType: "JSONP",
+					success: function(res) {
+						console.log(res)
+						$(".p3").text($(".in1").val() + "年" + $(".in2").val() + "月" + $(".in3").val() + "日"),
+							$(".p5").text(res["result"]['yangli']),
+							$(".p6").text("星期" + res["result"]["week"]),
+							$(".p7").text(res["result"]['star']),
+							$(".p8").text(res["result"]['nongli']),
+							$(".p9").text("生肖：" + res["result"]['shengxiao']),
+							$(".p10").text(res["result"]['jiri']),
+							$(".p11").text(res["result"]['sha']),
+							$(".p12").text(res["result"]['yi']),
+							$(".p13").text(res["result"]['ji']),
+							$(".bu").text(res["result"]['chong']),
+							$(".pp").text(res["result"]['jishenyiqu']),
+							$(".p15").text(res["result"]['suici']),
+							$(".p14").text(res["result"]['wuxing']),
+							$(".p16").text(res["result"]['taishen']),
+							$(".p17").text(res["result"]['caishen']),
+							$(".p18").text(res["result"]["xishen"]),
+							$(".p19").text(res["result"]["caishen"])
+						if(res["result"]['jiri'] == null) {
+							$(".p10").text("无")
+						}
+					},
+					error: function(e) {
+
+					}
+				});
+			})
+			var d = new Date();
+				var m = d.getMonth()+1;
+				var y = d.getFullYear();
+				var d1 = d.getDate();
+				$(".in1").val(y)
+				console.log(y)
+				$(".in2").val(m)
+				$(".in3").val(d1)
+//			var arr = [1, 2, 2, 3, 4, 5, 9, 3, 3, 3, 3, 3, 3]
+//			var x = arr[0]
+//			var a = []
+//			for(var i = 0; i < arr.length; i++) {
+//				if(x < arr[i]) {
+//					x = arr[i]
+//				}
+//			}
+//			arr.sort(function(a, b) {
+//				return a - b
+//			})
+//			for(var i = 0; i < arr.length; i++) {
+//				var z = arr[i]
+//				if(a.indexOf(z) == -1) {
+//					a.push(z)
+//				}
+//			}
+//			console.log(a)
+		})
+	</script>
+
+</html>
